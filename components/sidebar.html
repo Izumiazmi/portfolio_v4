@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar dengan Switch</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* --- Variabel Tema --- */
+        :root,
+        [data-theme="dark"] {
+            --background: #121212;
+            --surface: #1e1e1e;
+            --surface-hover: #2a2a2a;
+            --active-bg: #1e1e1e;
+            --active-text: #ffffff;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --border: #2b2b2b;
+            --primary: #facc15;
+        }
+
+        [data-theme="light"] {
+            --background: #ffffff;
+            --surface: #f3f4f6;
+            --surface-hover: #e5e7eb;
+            --active-bg: #ffffff;
+            --active-text: #111827;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --primary: #facc15;
+        }
+
+        /* --- Sembunyikan Scrollbar Sidebar --- */
+        #sidebar {
+            -ms-overflow-style: none;
+            /* IE dan Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        #sidebar::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari, Opera */
+        }
+
+        /* --- Style Switch Slider (Tema & Bahasa) --- */
+        .theme-toggle input {
+            display: none;
+        }
+
+        .theme-toggle .track {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 80px;
+            height: 36px;
+            background-color: var(--border);
+            border-radius: 20px;
+            padding: 0 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .theme-toggle .thumb {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 30px;
+            height: 30px;
+            background-color: #444;
+            border-radius: 50%;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        /* Tema: Kondisi Gelap */
+        .theme-toggle input:checked+.track {
+            background-color: #1e1e1e;
+        }
+
+        .theme-toggle input:checked+.track .thumb {
+            transform: translateX(44px);
+            background-color: #555;
+        }
+
+        .theme-toggle .icon {
+            z-index: 2;
+            transition: color 0.3s ease;
+            font-size: 14px;
+        }
+
+        .theme-toggle input:checked+.track .icon-sun {
+            color: #4a4a4a;
+        }
+
+        .theme-toggle input:checked+.track .icon-moon {
+            color: #fff;
+        }
+
+        /* Tema: Kondisi Terang */
+        .theme-toggle input:not(:checked)+.track {
+            background-color: #e0e0e0;
+        }
+
+        .theme-toggle input:not(:checked)+.track .thumb {
+            transform: translateX(0);
+            background-color: #fff;
+        }
+
+        .theme-toggle input:not(:checked)+.track .icon-sun {
+            color: #f39c12;
+        }
+
+        .theme-toggle input:not(:checked)+.track .icon-moon {
+            color: #aaa;
+        }
+
+        /* --- Bahasa: Text & Thumb Kuning --- */
+        .lang-text {
+            font-size: 13px;
+            font-weight: 700;
+            z-index: 2;
+            transition: color 0.3s ease;
+            user-select: none;
+        }
+
+        /* Bahasa: ID aktif */
+        .theme-toggle input:checked+.lang-track {
+            background-color: var(--surface);
+        }
+
+        .theme-toggle input:checked+.lang-track .lang-text-us {
+            color: var(--text-muted);
+        }
+
+        .theme-toggle input:checked+.lang-track .lang-text-id {
+            color: var(--text-main);
+        }
+
+        .theme-toggle input:checked+.lang-track .lang-thumb {
+            transform: translateX(44px);
+            background-color: var(--primary);
+        }
+
+        /* Bahasa: US aktif */
+        .theme-toggle input:not(:checked)+.lang-track {
+            background-color: var(--border);
+        }
+
+        .theme-toggle input:not(:checked)+.lang-track .lang-text-us {
+            color: var(--text-main);
+        }
+
+        .theme-toggle input:not(:checked)+.lang-track .lang-text-id {
+            color: var(--text-muted);
+        }
+
+        .theme-toggle input:not(:checked)+.lang-track .lang-thumb {
+            transform: translateX(0);
+            background-color: var(--primary);
+        }
+
+        /* --- Custom Nav Item Styles --- */
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background-color: var(--surface-hover);
+            color: var(--text-main);
+        }
+
+        .nav-item.active {
+            background-color: var(--active-bg);
+            color: var(--active-text);
+            font-weight: 600;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-item.active i {
+            color: var(--primary);
+        }
+    </style>
+</head>
+
+<body class="bg-[var(--background)] text-[var(--text-main)] transition-colors duration-300">
+
+    <aside id="sidebar"
+        class="hidden lg:flex flex-col w-[280px] h-[calc(100vh)] sticky top-0 border-r border-[var(--border)] bg-[var(--background)] p-6 overflow-y-auto shrink-0 transition-all z-20">
+    
+        <!-- Dikurangi margin bawahnya menjadi mb-3 agar tidak terlalu jauh -->
+        <div class="flex flex-col items-center mb-3">
+            <img src="images/me.jpeg" alt="Satria Bahari"
+                class="w-24 h-24 rounded-full mb-4 object-cover shadow-lg border border-[var(--border)]">
+    
+            <div class="flex items-center gap-1 mb-2">
+                <h1 class="text-[var(--text-main)] font-semibold text-lg">Satria Bahari</h1>
+                <i class="ph-fill ph-seal-check text-blue-500"></i>
+            </div>
+    
+            <!-- Dikurangi margin bawah tombol Hire Me dari mb-6 ke mb-4 -->
+            <div
+                class="border border-yellow-500/30 text-yellow-500 text-xs px-3 py-1 rounded-full flex items-center gap-2 mb-4 cursor-pointer hover:bg-yellow-500/10 transition-colors">
+                <div class="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
+                Hire Me
+            </div>
+    
+            <div class="flex gap-4 w-full justify-center px-1 items-center">
+                <!-- Switch Bahasa -->
+                <label class="theme-toggle">
+                    <input type="checkbox" id="languageSwitchSidebar">
+                    <span class="track lang-track">
+                        <span class="lang-text lang-text-us">US</span>
+                        <span class="lang-text lang-text-id">ID</span>
+                        <span class="thumb lang-thumb"></span>
+                    </span>
+                </label>
+    
+                <!-- Switch Tema -->
+                <label class="theme-toggle">
+                    <input type="checkbox" id="themeSwitchSidebar">
+                    <span class="track">
+                        <i class="fas fa-sun icon icon-sun"></i>
+                        <i class="fas fa-moon icon icon-moon"></i>
+                        <span class="thumb"></span>
+                    </span>
+                </label>
+            </div>
+        </div>
+    
+        <!-- Margin atas dikurangi dari mt-4 menjadi mt-1 -->
+        <nav class="flex flex-col gap-1 mb-6 flex-1 mt-1">
+            <button id="toggleLayoutBtnSide" class="nav-item w-full text-left justify-start mb-1">
+                <i class="ph ph-layout text-lg"></i> Switch Layout
+            </button>
+    
+            <div class="w-full h-px bg-[var(--border)] my-2"></div>
+    
+            <a href="index.html" class="nav-item"><i class="ph ph-house text-lg"></i> Home</a>
+            <a href="about.html" class="nav-item"><i class="ph ph-user text-lg"></i> About</a>
+            <a href="certificate.html" class="nav-item"><i class="ph ph-medal text-lg"></i> Certificates</a>
+            <a href="project.html" class="nav-item"><i class="ph ph-briefcase text-lg"></i> Projects</a>
+            <a href="#" class="nav-item"><i class="ph ph-device-mobile text-lg"></i> Creations</a>
+            <a href="#" class="nav-item"><i class="ph ph-squares-four text-lg"></i> Dashboard</a>
+            <a href="#" class="nav-item"><i class="ph ph-book-open-text text-lg"></i> Guestbook</a>
+            <a href="#" class="nav-item"><i class="ph ph-envelope text-lg"></i> Contact</a>
+            <a href="#" class="nav-item"><i class="ph ph-link text-lg"></i> Links</a>
+        </nav>
+    
+        <div class="mt-auto border-t border-[var(--border)] pt-4 flex flex-col gap-3">
+            <button
+                class="flex items-center justify-between w-full p-3 rounded-lg border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)]/10 transition-all">
+                <div class="flex items-center gap-2">
+                    <i class="ph ph-terminal-window"></i> Command Palette
+                </div>
+                <span class="text-xs border border-[var(--primary)]/50 px-1.5 py-0.5 rounded opacity-80">⌘K</span>
+            </button>
+            <p class="text-center text-[10px] text-[var(--text-muted)] mt-4">COPYRIGHT © 2026<br>Satria Bahari. All
+                rights reserved.
+            </p>
+        </div>
+    </aside>
+</body>
+
+</html>

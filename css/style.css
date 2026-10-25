@@ -1,0 +1,105 @@
+/* Pengaturan dasar halaman */
+body {
+    background-color: #121212;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+/* Sembunyikan checkbox asli */
+.theme-toggle input {
+    display: none;
+}
+
+/* Track (latar belakang switch) */
+.track {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70px;
+    height: 32px;
+    background-color: #2b2b2b;
+    border-radius: 20px;
+    padding: 0 8px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+/* Ikon Matahari (di track, posisi kiri) */
+.icon-sun {
+    font-size: 14px;
+    color: #666;
+    transition: color 0.3s ease;
+    user-select: none;
+    z-index: 2;
+    /* Agar ikon selalu terlihat di atas thumb */
+}
+
+/* Ikon Bulan (di track, posisi kanan) */
+.icon-moon {
+    font-size: 14px;
+    color: #666;
+    transition: color 0.3s ease;
+    user-select: none;
+    z-index: 2;
+}
+
+/* Thumb (tombol bulat yang bergerak) */
+.thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 26px;
+    height: 26px;
+    background-color: #444;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    /* Di bawah ikon */
+}
+
+/* --- Kondisi Saat Mode Gelap (Checkbox dicentang) --- */
+.theme-toggle input:checked+.track .thumb {
+    transform: translateX(38px);
+    /* Geser ke kanan */
+    background-color: #555;
+    /* Warna thumb lebih terang dari track */
+}
+
+.theme-toggle input:checked+.track .icon-sun {
+    color: #4a4a4a;
+    /* Matahari redup */
+}
+
+.theme-toggle input:checked+.track .icon-moon {
+    color: #fff;
+    /* Bulan putih terang */
+}
+
+/* --- Kondisi Saat Mode Terang (Tidak dicentang) --- */
+.theme-toggle input:not(:checked)+.track {
+    background-color: #e0e0e0;
+}
+
+.theme-toggle input:not(:checked)+.track .thumb {
+    transform: translateX(0);
+    /* Geser ke kiri */
+    background-color: #fff;
+    /* Putih */
+}
+
+.theme-toggle input:not(:checked)+.track .icon-sun {
+    color: #f39c12;
+    /* Matahari kuning terang */
+}
+
+.theme-toggle input:not(:checked)+.track .icon-moon {
+    color: #aaa;
+    /* Bulan abu-abu redup */
+}

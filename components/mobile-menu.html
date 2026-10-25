@@ -1,0 +1,82 @@
+<div id="mobileMenu"
+    class="mobile-overlay fixed inset-0 z-50 bg-[var(--background)] flex flex-col p-6 overflow-y-auto w-full h-screen transition-colors duration-300">
+
+    <!-- Top Section -->
+    <div class="relative w-full mb-6 pt-2">
+        <button id="closeMenuBtn"
+            class="absolute -top-2 -right-2 text-[var(--text-muted)] hover:text-[var(--text-main)] p-2 transition-colors">
+            <i class="ph ph-x text-2xl"></i>
+        </button>
+
+        <img src="images/me.jpeg" alt="Satria Bahari"
+            class="w-16 h-16 rounded-full mb-4 object-cover border border-[var(--border)]">
+
+        <div class="flex items-center justify-between w-full">
+            <div class="flex items-center gap-1">
+                <span class="text-[var(--text-main)] font-semibold text-lg">Satria Bahari</span>
+                <i class="ph-fill ph-seal-check text-blue-500"></i>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <!-- Switch Bahasa Mobile (Diperbarui) -->
+                <label class="theme-toggle">
+                    <input type="checkbox" id="languageSwitchMobile">
+                    <span class="track lang-track">
+                        <span class="lang-text lang-text-us">US</span>
+                        <span class="lang-text lang-text-id">ID</span>
+                        <span class="thumb lang-thumb"></span>
+                    </span>
+                </label>
+
+                <!-- Switch Tema Mobile (Diperbarui) -->
+                <label class="theme-toggle">
+                    <input type="checkbox" id="themeSwitchMobile">
+                    <span class="track">
+                        <i class="fas fa-sun icon icon-sun"></i>
+                        <i class="fas fa-moon icon icon-moon"></i>
+                        <span class="thumb"></span>
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="flex flex-col gap-1 mb-8 border-t border-[var(--border)] pt-4">
+        <a href="index.html" class="nav-item text-[var(--text-muted)] hover:text-[var(--text-main)]"><i
+                class="ph ph-house text-lg"></i> Home</a>
+        <a href="about.html" class="nav-item text-[var(--text-muted)] hover:text-[var(--text-main)]"><i
+                class="ph ph-user text-lg"></i> About</a>
+        <a href="certificate.html" class="nav-item text-[var(--text-muted)] hover:text-[var(--text-main)]"><i
+                class="ph ph-medal text-lg"></i> Certificates</a>
+        <a href="project.html" class="nav-item text-[var(--text-muted)] hover:text-[var(--text-main)]"><i
+                class="ph ph-briefcase text-lg"></i> Projects</a>
+        <a href="#" class="nav-item text-[var(--text-muted)] hover:text-[var(--text-main)]"><i
+                class="ph ph-device-mobile text-lg"></i> Creations</a>
+        <a href="#" class="nav-item text-[var(--text-muted)] hover:text-[var(--text-main)]"><i
+                class="ph ph-squares-four text-lg"></i> Dashboard</a>
+        <a href="#" class="nav-item text-[var(--text-muted)] hover:text-[var(--text-main)]"><i
+                class="ph ph-book-open-text text-lg"></i> Guestbook</a>
+        <a href="#" class="nav-item text-[var(--text-muted)] hover:text-[var(--text-main)]"><i
+                class="ph ph-envelope text-lg"></i> Contact</a>
+        <a href="#" class="nav-item text-[var(--text-muted)] hover:text-[var(--text-main)]"><i
+                class="ph ph-link text-lg"></i> Links</a>
+    </nav>
+
+    <!-- Bottom Section -->
+    <div class="mt-auto border-t border-[var(--border)] pt-4 pb-4">
+        <button
+            class="flex items-center gap-2 text-[var(--text-muted)] w-full p-3 rounded-lg hover:bg-[var(--surface)] border border-transparent hover:border-[var(--border)] transition-all mb-2">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google"
+                class="w-4 h-4">
+            Google Login
+        </button>
+        <button
+            class="flex items-center justify-between w-full p-3 rounded-lg border border-[#eab308] text-[#eab308] hover:bg-[#eab308]/10 transition-all">
+            <div class="flex items-center gap-2">
+                <i class="ph ph-terminal-window"></i> Command Palette
+            </div>
+            <span class="text-xs border border-[#eab308]/50 px-1.5 py-0.5 rounded opacity-80">⌘K</span>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+<nav id="topbar"
+    class="w-full border-b border-[var(--border)] bg-[var(--background)] sticky top-0 z-40 transition-colors duration-300">
+
+    <!-- DESKTOP HEADER (Tampil hanya pada layar besar) -->
+    <div class="hidden lg:flex items-center justify-between w-full max-w-5xl mx-auto px-4 md:px-8 h-16">
+        <!-- Kiri: Logo / Title -->
+        <div class="flex items-center shrink-0">
+            <span class="text-[var(--text-main)] font-bold text-lg tracking-wide">Satria Bahari</span>
+        </div>
+
+        <!-- Tengah: Nav Links -->
+        <div class="hidden md:flex gap-8 items-center h-full">
+            <a href="index.html"
+                class="text-[var(--text-muted)] hover:text-[var(--text-main)] font-medium transition-colors">Home</a>
+            <a href="about.html" class="text-[var(--text-main)] font-medium transition-colors">About</a>
+            <a href="certificate.html"
+                class="text-[var(--text-muted)] hover:text-[var(--text-main)] font-medium transition-colors">Certificates</a>
+            <a href="project.html"
+                class="text-[var(--text-muted)] hover:text-[var(--text-main)] font-medium transition-colors">Projects</a>
+
+            <!-- Dropdown Menus -->
+            <div class="relative group h-full flex items-center cursor-pointer">
+                <button
+                    class="flex items-center gap-1.5 text-[var(--text-muted)] group-hover:text-[var(--text-main)] font-medium transition-colors">
+                    Menus <i class="ph ph-caret-down text-sm"></i>
+                </button>
+
+                <div
+                    class="absolute top-12 left-0 w-48 bg-[var(--surface)] border border-[var(--border)] rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+                    <a href="#"
+                        class="block px-4 py-2.5 text-sm text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--surface-hover)] transition-colors">Creations</a>
+                    <a href="#"
+                        class="block px-4 py-2.5 text-sm text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--surface-hover)] transition-colors">Dashboard</a>
+                    <a href="#"
+                        class="block px-4 py-2.5 text-sm text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--surface-hover)] transition-colors">Guestbook</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kanan Desktop: Switch & Buttons -->
+        <div class="hidden lg:flex items-center gap-4 shrink-0">
+            <label class="theme-toggle">
+                <input type="checkbox" id="languageSwitchTopbar">
+                <span class="track lang-track">
+                    <span class="lang-text lang-text-us">US</span>
+                    <span class="lang-text lang-text-id">ID</span>
+                    <span class="thumb lang-thumb"></span>
+                </span>
+            </label>
+
+            <label class="theme-toggle">
+                <input type="checkbox" id="themeSwitchTopbar">
+                <span class="track">
+                    <i class="fas fa-sun icon icon-sun"></i>
+                    <i class="fas fa-moon icon icon-moon"></i>
+                    <span class="thumb"></span>
+                </span>
+            </label>
+
+            <div class="h-6 w-px bg-[var(--border)] mx-2"></div>
+
+            <button id="toggleLayoutBtnTop"
+                class="flex items-center gap-2 text-[var(--text-muted)] hover:text-[var(--text-main)] font-medium transition-colors">
+                <i class="ph ph-layout text-lg"></i> <span class="text-sm">Layout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MOBILE HEADER (Hanya Tampil di Layar HP) -->
+    <div class="flex lg:hidden items-center justify-between w-full h-16 px-4">
+        <!-- Kiri: Nama Tanpa Foto -->
+        <span class="text-[var(--text-main)] font-bold text-base tracking-wide">Satria Bahari</span>
+
+        <!-- Kanan: Switch Bahasa, Switch Tema, dan Tombol Menu Garis 3 -->
+        <div class="flex items-center gap-3">
+            <label class="theme-toggle">
+                <input type="checkbox" id="languageSwitchMobileHeader">
+                <span class="track lang-track">
+                    <span class="lang-text lang-text-us">US</span>
+                    <span class="lang-text lang-text-id">ID</span>
+                    <span class="thumb lang-thumb"></span>
+                </span>
+            </label>
+
+            <label class="theme-toggle">
+                <input type="checkbox" id="themeSwitchMobileHeader">
+                <span class="track">
+                    <i class="fas fa-sun icon icon-sun"></i>
+                    <i class="fas fa-moon icon icon-moon"></i>
+                    <span class="thumb"></span>
+                </span>
+            </label>
+
+            <button id="openMenuBtnTop"
+                class="text-[var(--text-main)] p-2 bg-[var(--surface)] rounded-md border border-[var(--border)] flex items-center justify-center">
+                <i class="ph ph-list text-xl"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<script>
+    setTimeout(() => {
+        const langTopbar = document.getElementById('languageSwitchTopbar');
+        const langSidebar = document.getElementById('languageSwitchSidebar');
+
+        langTopbar?.addEventListener('change', function (e) {
+            const newLang = e.target.checked ? 'id' : 'us';
+            if (typeof applyLanguage === 'function') applyLanguage(newLang);
+            if (langSidebar) langSidebar.checked = e.target.checked;
+        });
+    }, 200);
+</script>

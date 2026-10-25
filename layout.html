@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Template</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        background: '#09090b', surface: '#18181b', primary: '#facc15',
+                        textMain: '#fafafa', textMuted: '#a1a1aa', border: '#27272a'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #09090b; color: #a1a1aa; }
+        .mobile-overlay { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease; transform: translateY(-100%); opacity: 0; pointer-events: none; }
+        .mobile-overlay.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 8px 16px; border-radius: 8px; color: #a1a1aa; transition: all 0.2s; cursor: pointer; width: 100%;}
+        .nav-item:hover, .nav-item.active { background-color: #18181b; color: #fafafa; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-sm overflow-x-hidden">
+
+    <nav id="topbar" class="hidden w-full h-16 items-center justify-between px-6 border-b border-border bg-background sticky top-0 z-40 transition-all">
+        <div class="flex items-center gap-2"><span class="text-textMain font-semibold text-base">Satria Bahari</span></div>
+        <div class="flex items-center gap-4">
+            <div class="flex bg-surface rounded-full p-1 border border-border shrink-0">
+                <button class="bg-primary text-black text-xs font-semibold px-3 py-1 rounded-full">US</button>
+                <button class="text-textMuted text-xs px-3 py-1 rounded-full hover:bg-surfaceHover">ID</button>
+            </div>
+            <button id="toggleLayoutBtnTop" class="hidden lg:flex items-center gap-2 text-textMuted hover:text-textMain font-medium transition-colors">
+                <i class="ph ph-layout text-lg"></i> Layout
+            </button>
+            <button id="openMenuBtnTop" class="lg:hidden text-textMain p-2 bg-surface rounded-md border border-border"><i class="ph ph-list text-xl"></i></button>
+        </div>
+    </nav>
+
+    <header id="mobileHeader" class="flex lg:hidden w-full h-16 items-center justify-between px-4 border-b border-border bg-background sticky top-0 z-30">
+        <div class="flex items-center gap-2"><div class="w-8 h-8 rounded-full bg-yellow-400 text-black flex items-center justify-center font-bold text-xs">SB</div><span class="text-textMain font-semibold">Satria Bahari</span></div>
+        <button id="openMenuBtn" class="text-textMain p-2 bg-surface rounded-md border border-border"><i class="ph ph-list text-xl"></i></button>
+    </header>
+
+    <div id="mobileMenu" class="mobile-overlay fixed inset-0 z-50 bg-[#1e1e1e] flex flex-col p-6 overflow-y-auto w-full h-screen">
+        <div class="relative w-full mb-6 pt-2">
+            <button id="closeMenuBtn" class="absolute -top-2 -right-2 text-textMuted hover:text-textMain p-2"><i class="ph ph-x text-2xl"></i></button>
+            <div class="w-16 h-16 rounded-full mb-4 bg-yellow-400 text-black flex items-center justify-center text-xl font-bold border border-border">SB</div>
+            <div class="flex items-center justify-between w-full">
+                <div class="flex items-center gap-1"><span class="text-textMain font-semibold text-lg">Satria Bahari</span></div>
+            </div>
+        </div>
+        <nav class="flex flex-col gap-1 mb-8 border-t border-border pt-4"><a href="#" class="nav-item"><i class="ph ph-house text-lg"></i> Home</a></nav>
+    </div>
+
+    <div id="mainContainer" class="flex flex-1 w-full relative">
+        <aside id="sidebar" class="hidden lg:flex flex-col w-[280px] h-[calc(100vh)] sticky top-0 border-r border-border bg-background p-6 overflow-y-auto shrink-0 transition-all z-20">
+            <div class="flex flex-col items-center mb-6">
+                <div class="w-24 h-24 rounded-full mb-4 bg-yellow-400 text-black flex items-center justify-center text-3xl font-bold shadow-lg">SB</div>
+                <h1 class="text-textMain font-semibold text-lg mb-4">Satria Bahari</h1>
+                <div class="flex gap-4 w-full justify-center px-1">
+                    <div class="flex bg-surface rounded-full p-1 border border-border shrink-0">
+                        <button class="bg-primary text-black text-xs font-semibold px-3 py-1 rounded-full">US</button>
+                        <button class="text-textMuted text-xs px-3 py-1 rounded-full hover:bg-surfaceHover">ID</button>
+                    </div>
+                </div>
+            </div>
+            <nav class="flex flex-col gap-1 mb-8 flex-1 mt-4">
+                <button id="toggleLayoutBtnSide" class="nav-item text-left justify-start mb-2 border border-border/50 bg-surface/50"><i class="ph ph-layout text-lg"></i> Switch Layout</button>
+                <div class="w-full h-px bg-border my-2"></div>
+                <a href="#" class="nav-item"><i class="ph ph-house text-lg"></i> Home</a>
+            </nav>
+        </aside>
+
+        <main id="mainContent" class="flex-1 p-6 md:p-12 w-full max-w-full overflow-x-hidden">
+            <h1 class="text-2xl font-bold text-textMain">Welcome to Layout</h1>
+        </main>
+    </div>
+
+    <script>
+        const mobileMenu = document.getElementById('mobileMenu');
+        const sidebar = document.getElementById('sidebar');
+        const topbar = document.getElementById('topbar');
+        
+        let isTopbarLayout = false;
+
+        const toggleMenu = (show) => {
+            mobileMenu.classList[show ? 'add' : 'remove']('active');
+            document.body.style.overflow = show ? 'hidden' : '';
+        };
+
+        document.getElementById('openMenuBtn')?.addEventListener('click', () => toggleMenu(true));
+        document.getElementById('openMenuBtnTop')?.addEventListener('click', () => toggleMenu(true));
+        document.getElementById('closeMenuBtn')?.addEventListener('click', () => toggleMenu(false));
+
+        const updateLayout = () => {
+            if (isTopbarLayout) {
+                sidebar.className = 'hidden';
+                topbar.className = 'hidden lg:flex w-full h-16 items-center justify-between px-6 border-b border-border bg-background sticky top-0 z-40 transition-all';
+            } else {
+                sidebar.className = 'hidden lg:flex flex-col w-[280px] h-[calc(100vh)] sticky top-0 border-r border-border bg-background p-6 overflow-y-auto shrink-0 transition-all z-20';
+                topbar.className = 'hidden';
+            }
+        };
+
+        const toggleBtn = () => { isTopbarLayout = !isTopbarLayout; updateLayout(); };
+        document.getElementById('toggleLayoutBtnSide')?.addEventListener('click', toggleBtn);
+        document.getElementById('toggleLayoutBtnTop')?.addEventListener('click', toggleBtn);
+        updateLayout();
+    </script>
+</body>
+</html>

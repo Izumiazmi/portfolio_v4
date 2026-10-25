@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Satria Bahari — Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            background: '#09090b',
+            surface: '#18181b',
+            surfaceHover: '#27272a',
+            primary: '#facc15',
+            textMain: '#fafafa',
+            textMuted: '#a1a1aa',
+            border: '#27272a'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #09090b;
+      color: #a1a1aa;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #09090b;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #27272a;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3f3f46;
+    }
+
+    .mobile-overlay {
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .mobile-overlay.active {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      color: #a1a1aa;
+      transition: all 0.2s;
+      cursor: pointer;
+      width: 100%;
+      text-decoration: none;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      background-color: #18181b;
+      color: #fafafa;
+    }
+
+    .nav-item.active i {
+      color: #facc15;
+    }
+  </style>
+</head>
+
+<body class="flex flex-col min-h-screen text-sm overflow-x-hidden">
+
+  <div id="topbar-container"></div>
+
+  <header id="mobileHeader"
+    class="flex lg:hidden w-full h-16 items-center justify-between px-4 border-b border-border bg-background sticky top-0 z-30">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-full bg-yellow-400 text-black flex items-center justify-center font-bold text-xs">
+        SB</div>
+      <span class="text-textMain font-semibold">Satria Bahari</span>
+    </div>
+    <button id="openMenuBtn" class="text-textMain p-2 bg-surface rounded-md border border-border">
+      <i class="ph ph-list text-xl"></i>
+    </button>
+  </header>
+
+  <div id="mobile-menu-container"></div>
+
+  <div id="mainContainer" class="flex flex-1 w-full relative">
+    <div id="sidebar-container"></div>
+
+    <main id="mainContent" class="flex-1 p-6 md:p-12 w-full overflow-x-hidden">
+      <!-- Konten full width -->
+      <div class="w-full">
+        <!-- Hero section -->
+        <section class="mb-12">
+          <h1 class="text-4xl font-bold text-textMain mb-4">Hi, I'm Satria Bahari</h1>
+          <p class="text-textMuted text-lg max-w-2xl leading-relaxed">
+            Software Engineer from Jambi, Indonesia. I build scalable web & mobile solutions
+            with a focus on clean architecture and real-world impact.
+          </p>
+          <div class="mt-6 flex gap-4">
+            <a href="about.html"
+              class="bg-primary text-black px-6 py-2 rounded-lg font-semibold hover:bg-yellow-400/90 transition">About
+              Me</a>
+            <a href="project.html"
+              class="border border-border text-textMain px-6 py-2 rounded-lg hover:bg-surface transition">See
+              Projects</a>
+          </div>
+        </section>
+
+        <!-- Quick stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-border pt-8">
+          <div>
+            <p class="text-textMain font-semibold text-2xl">2+</p>
+            <p class="text-textMuted text-sm">Years Experience</p>
+          </div>
+          <div>
+            <p class="text-textMain font-semibold text-2xl">5</p>
+            <p class="text-textMuted text-sm">Projects Shipped</p>
+          </div>
+          <div>
+            <p class="text-textMain font-semibold text-2xl">3</p>
+            <p class="text-textMuted text-sm">Certifications</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <button
+    class="fixed bottom-6 right-6 w-12 h-12 bg-surface border border-border rounded-full flex items-center justify-center text-textMuted hover:text-textMain shadow-lg z-40">
+    <i class="ph ph-chat-circle-dots text-2xl"></i>
+  </button>
+
+  <script src="js/layout.js"></script>
+</body>
+
+</html>
